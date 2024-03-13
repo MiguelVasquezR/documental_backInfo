@@ -1,0 +1,27 @@
+# Archivos y directorios generados por el sistema operativo
+.DS_Store
+Thumbs.db
+
+# Directorios de dependencias
+/target/
+/lib/
+
+# Archivos de compilación y construcción
+*.class
+*.jar
+*.war
+*.ear
+*.zip
+
+# Archivos de configuración local
+application.properties
+application.yml
+
+# Archivos de IDE y editores de texto
+.idea/
+.vscode/
+*.iml
+
+# Otros archivos y directorios específicos del proyecto
+/logs/
+/out/
