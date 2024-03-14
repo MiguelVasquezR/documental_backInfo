@@ -3,6 +3,7 @@ package cd;
 import static spark.Spark.*;
 import cd.Controladores.ControladorAutor;
 import cd.Controladores.ControladorEstudiante;
+import cd.Controladores.ControladorGenero;
 import cd.Controladores.ControladorTexto;
 import cd.Controladores.ControladorPrestamo;
 import cd.Controladores.ControladorPelicula;
@@ -26,7 +27,7 @@ public class App {
 
         // --------------------------------------- Rutas        
         path("/estudiante", () -> {
-            get("/estudiantes", ControladorEstudiante::obtenerEstudiantes);
+            get("/listar", ControladorEstudiante::obtenerEstudiantes);
             post("/crear", ControladorEstudiante::crearEstudiante);
             delete("/eliminar", ControladorEstudiante::eliminarEstudiante);
             put("/editar", ControladorEstudiante::editarEstudiante);
@@ -58,6 +59,11 @@ public class App {
             post("/crear", ControladorPelicula::crearPelicula);
             delete("/eliminar/:id", ControladorPelicula::eliminarPelicula);
             put("/editar", ControladorPelicula::editarPelicula);
+        });
+
+        path("/genero", ()->{
+            get("/listar", ControladorGenero::obtenerIDGenero);
+            post("/crear", ControladorGenero::crearGenero);
         });
 
     }  

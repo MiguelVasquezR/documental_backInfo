@@ -35,7 +35,8 @@ public class ControladorTexto {
         texto.setAno(jsonBody.get("Ano").getAsInt());
         texto.setDisponibilidad(jsonBody.get("Disponibilidad").getAsString());
         texto.setUbicacion(jsonBody.get("Ubicacion").getAsString());
-        texto.setTipo(jsonBody.get("Tipo").getAsString());        
+        texto.setTipo(jsonBody.get("Tipo").getAsString());     
+        texto.setCodigo(jsonBody.get("Codigo").getAsString());   
         texto.setAtributos(atributos.toString());        
     
         String mensaje = "";

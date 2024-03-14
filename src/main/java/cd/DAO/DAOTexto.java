@@ -11,14 +11,15 @@ public class DAOTexto {
     private static Conexion conexion = new Conexion();
 
     public boolean crearTexto(Texto texto){
+        System.out.println(texto.toString());
         Connection con = null;
         PreparedStatement ps = null;        
         try{
             con = conexion.getConexion();        
-            ps = con.prepareStatement("INSERT INTO texto (ID, LinkFoto, Titulo, Ano, Codigo, IDAutor, NumPaginas, Ubicacion, Disponibilidad, Resena, Tipo, Atributos) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            ps = con.prepareStatement("INSERT INTO texto (ID, LinkFoto, Titulo, Ano, Codigo, IDAutor, NumPaginas, Ubicacion, Disponibilidad, Resena, Tipo, Atributos) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
             ps.setString(1, texto.getID());
             ps.setString(2, texto.getLinkFoto());
-            ps.setString(3, texto.getTipo());
+            ps.setString(3, texto.getTitulo());
             ps.setInt(4, texto.getAno());
             ps.setString(5, texto.getCodigo());
             ps.setString(6, texto.getIDAutor());
@@ -27,7 +28,7 @@ public class DAOTexto {
             ps.setString(9, texto.getDisponibilidad());
             ps.setString(10, texto.getResena());
             ps.setString(11, texto.getTipo());            
-            ps.setString(12, texto.getAtributos().toString());            
+            ps.setString(12, texto.getAtributos());            
             int res = ps.executeUpdate();
             if (res>0) {
                 return true;                
