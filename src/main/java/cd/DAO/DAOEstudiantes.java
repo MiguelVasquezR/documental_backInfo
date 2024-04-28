@@ -1,5 +1,7 @@
 package cd.DAO;
 
+import static spark.Spark.redirect;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
@@ -7,6 +9,7 @@ import java.util.ArrayList;
 
 import cd.DAO.Conexion.Conexion;
 import cd.Modelo.Estudiante;
+import com.google.gson.JsonObject;
 
 public class DAOEstudiantes {
 
@@ -26,7 +29,7 @@ public class DAOEstudiantes {
             while (rs.next()) {
                 estudiante = new Estudiante();
                 estudiante.setID(rs.getString("ID"));
-                estudiante.setNombre(rs.getString("Nombre"));                
+                estudiante.setNombre(rs.getString("Nombre"));
                 estudiante.setPaterno(rs.getString("Paterno"));
                 estudiante.setMaterno(rs.getString("Materno"));
                 estudiante.setMatricula(rs.getString("Matricula"));
@@ -41,56 +44,93 @@ public class DAOEstudiantes {
         }
     }
 
-    public boolean crearEstudiante(Estudiante estudiante){
+    public Estudiante getEstudiante(String id) {
+        Connection c = null;
         PreparedStatement ps = null;
-        Connection c = null;    
-        try{
-            c = conexion.getConexion();            
-            ps = c.prepareStatement("insert into Estudiante(ID, Nombre, Materno, Paterno, Matricula, Correo, Telefono) values (?,?,?,?,?,?,?)");
-            ps.setString(1, estudiante.getID());
-            ps.setString(2, estudiante.getNombre());
-            ps.setString(3, estudiante.getMaterno());
-            ps.setString(4, estudiante.getPaterno());
-            ps.setString(5, estudiante.getMatricula());
-            ps.setString(6, estudiante.getCorreo());
-            ps.setString(7, estudiante.getTelefono());
-            int res = ps.executeUpdate();
-            if (res>0) {
-                return true;
+        ResultSet rs = null;
+
+        Estudiante estudiante = new Estudiante();
+        try {
+            c = conexion.getConexion();
+            ps = c.prepareStatement("SELECT * FROM Estudiante where ID = ?");
+            ps.setString(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                estudiante = new Estudiante();
+                estudiante.setID(rs.getString("ID"));
+                estudiante.setNombre(rs.getString("Nombre"));
+                estudiante.setPaterno(rs.getString("Paterno"));
+                estudiante.setMaterno(rs.getString("Materno"));
+                estudiante.setMatricula(rs.getString("Matricula"));
+                estudiante.setTelefono(rs.getString("Telefono"));
+                estudiante.setCorreo(rs.getString("Correo"));
+            }
+            return estudiante;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public String crearEstudiante(Estudiante estudiante) {
+        PreparedStatement ps = null;
+        Connection c = null;
+        try {
+            String verificar = verficarExistencia(estudiante.getMatricula());
+            if (verificar.equals("No Existe")) {                
+                c = conexion.getConexion();
+                ps = c.prepareStatement(
+                        "insert into Estudiante(ID, Nombre, Materno, Paterno, Matricula, Correo, Telefono) values (?,?,?,?,?,?,?)");
+                ps.setString(1, estudiante.getID());
+                ps.setString(2, estudiante.getNombre());
+                ps.setString(3, estudiante.getMaterno());
+                ps.setString(4, estudiante.getPaterno());
+                ps.setString(5, estudiante.getMatricula());
+                ps.setString(6, estudiante.getCorreo());
+                ps.setString(7, estudiante.getTelefono());
+                int res = ps.executeUpdate();
+                if (res > 0) {
+                    return "Creado";
+                } else {
+                    return "No Creado";
+                }
+            }else if(verificar.equals("Existe")){
+                return "Usuario Existente";
             }else{
+                return "Error";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "No se ha agregado";
+        }
+    }
+
+    public boolean eliminarEstudiante(String ID) {
+        PreparedStatement ps = null;
+        Connection c = null;
+        try {
+            c = conexion.getConexion();
+            ps = c.prepareStatement("delete from Estudiante where ID = ?");
+            ps.setString(1, ID);
+            int res = ps.executeUpdate();
+            if (res > 0) {
+                return true;
+            } else {
                 return false;
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
 
-    public boolean eliminarEstudiante(String ID){
+    public boolean editarEstudiante(Estudiante estudiante) {
         PreparedStatement ps = null;
         Connection c = null;
-        try{
+        try {
             c = conexion.getConexion();
-            ps = c.prepareStatement("delete from Estudiante where ID = ?");
-            ps.setString(1, ID);
-            int res = ps.executeUpdate();
-            if (res>0) {
-                return true;                
-            }else{
-                return false;
-            }            
-        }catch(Exception e){
-            e.printStackTrace();
-            return false;
-        }        
-    }
-
-    public boolean editarEstudiante(Estudiante estudiante){
-        PreparedStatement ps = null;
-        Connection c = null;    
-        try{
-            c = conexion.getConexion();            
-            ps = c.prepareStatement("update Estudiante set Nombre = ?, Materno = ?, Paterno = ?, Matricula = ?, Correo = ?, Telefono = ? where ID = ?");
+            ps = c.prepareStatement(
+                    "update Estudiante set Nombre = ?, Materno = ?, Paterno = ?, Matricula = ?, Correo = ?, Telefono = ? where ID = ?");
             ps.setString(1, estudiante.getNombre());
             ps.setString(2, estudiante.getMaterno());
             ps.setString(3, estudiante.getPaterno());
@@ -100,15 +140,66 @@ public class DAOEstudiantes {
             ps.setString(7, estudiante.getID());
 
             int res = ps.executeUpdate();
-            if (res>0) {
+            if (res > 0) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
+
+    private String verficarExistencia(String matricula) {
+        Connection c = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            c = conexion.getConexion();
+            ps = c.prepareStatement("SELECT * FROM Estudiante WHERE Matricula = ?");
+            ps.setString(1, matricula);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                return "Existe";
+            } else {
+                return "No Existe";
+            }
+        } catch (Exception e) {
+            return "Error";
+        }
+    }
+
+    public Estudiante obtenerEstudianteByMatricula(String matricula){
+        Connection c = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try{
+            c = conexion.getConexion();
+            ps = c.prepareStatement("SELECT * FROM Estudiante WHERE Matricula = ?");
+            ps.setString(1, matricula);
+            rs = ps.executeQuery();
+            Estudiante estudiante = null;
+            if(rs.next()){
+                estudiante = new Estudiante();
+                estudiante.setID(rs.getString("ID"));
+                estudiante.setNombre(rs.getString("Nombre"));
+                estudiante.setPaterno(rs.getString("Paterno"));
+                estudiante.setMaterno(rs.getString("Materno"));
+                estudiante.setMatricula(rs.getString("Matricula"));
+                estudiante.setTelefono(rs.getString("Telefono"));
+                estudiante.setCorreo(rs.getString("Correo"));
+                return estudiante;
+            }else{
+                return null;
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+
+
 
 }

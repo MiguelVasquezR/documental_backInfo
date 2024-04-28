@@ -4,9 +4,17 @@ public class Genero {
 
     private String ID;
     private String Nombre;
+    private String IDPelicula;
 
     public Genero(){
 
+    }
+    public String getIDPelicula() {
+        return IDPelicula;
+    }
+
+    public void setIDPelicula(String IDPelicula) {
+        this.IDPelicula = IDPelicula;
     }
 
     public String getID() {
@@ -23,6 +31,14 @@ public class Genero {
 
     public void setNombre(String Nombre) {
         this.Nombre = Nombre;
-    }        
-    
+    }
+
+    @Override
+    public String toString() {
+        return "Genero{" +
+                "ID='" + ID + '\'' +
+                ", Nombre='" + Nombre + '\'' +
+                ", IDPelicula='" + IDPelicula + '\'' +
+                '}';
+    }
 }

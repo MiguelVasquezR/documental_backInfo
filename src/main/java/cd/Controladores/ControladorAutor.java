@@ -23,12 +23,16 @@ public class ControladorAutor {
         Autor autor = gson.fromJson(req.body(), Autor.class);
         autor.setID(UUID.randomUUID().toString());
         String mensaje = "";
-        if(daoAutor.crearAutor(autor)){
-            mensaje = "Autor Creado";
+        String IDAutor = daoAutor.crearAutor(autor);
+        JsonObject jsonObject = new JsonObject();
+
+        if(!IDAutor.equals("Error al crear autor")){
+            mensaje = "Autor creado";
+            jsonObject.addProperty("IDAutor", IDAutor);
         }else{
             mensaje = "Error al crear autor";
         }        
-        JsonObject jsonObject = new JsonObject();
+        
         jsonObject.addProperty("mensaje", mensaje);                
         return jsonObject;
     }
@@ -57,6 +61,11 @@ public class ControladorAutor {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("mensaje", mensaje);
         return jsonObject;
+    }
+
+    public static String obtenerAutorByID(Request req, Response res) {
+        String id = req.queryParams("id");
+        return gson.toJson(daoAutor.obtenerAutor(id));
     }
 
 }

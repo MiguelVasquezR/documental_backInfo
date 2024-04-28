@@ -2,6 +2,7 @@ package cd.Controladores;
 
 import spark.Request;
 import spark.Response;
+
 import java.util.UUID;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -17,12 +18,7 @@ public class ControladorEstudiante {
         JsonObject jsonObject = new JsonObject();
         Estudiante estudiante = gson.fromJson(req.body(), Estudiante.class);        
         estudiante.setID(UUID.randomUUID().toString());
-        String mensaje = "";
-        if (controladorEstudiante.crearEstudiante(estudiante)) {
-            mensaje = "Estudiante creado";
-        } else {
-            mensaje = "Error al crear estudiante";
-        }                   
+        String mensaje = controladorEstudiante.crearEstudiante(estudiante);
         jsonObject.addProperty("mensaje", mensaje);     
         return jsonObject;
     }
@@ -55,6 +51,18 @@ public class ControladorEstudiante {
         }                   
         jsonObject.addProperty("mensaje", mensaje);     
         return jsonObject;
+    }
+
+    public static String obtenerEstudianteByMatricula(Request req, Response res) {
+        String matricula = req.queryParams("matricula");
+        Estudiante estudiante = controladorEstudiante.obtenerEstudianteByMatricula(matricula);
+        return gson.toJson(estudiante);
+    }
+
+    public static String obtenerEstudianteByID(Request req, Response res) {
+        String id = req.queryParams("id");
+        Estudiante estudiante = controladorEstudiante.getEstudiante(id);
+        return gson.toJson(estudiante);
     }
 
 }

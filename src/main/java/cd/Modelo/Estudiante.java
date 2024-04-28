@@ -80,4 +80,10 @@ public class Estudiante {
     public void setTelefono(String Telefono) {
         this.Telefono = Telefono;
     }
+
+    @Override
+    public String toString() {
+        return "Estudiante{" + "ID=" + ID + ", Nombre=" + Nombre + ", Materno=" + Materno + ", Paterno=" + Paterno + ", Matricula=" + Matricula + ", Correo=" + Correo + ", Telefono=" + Telefono + '}';
+    }
+
 }

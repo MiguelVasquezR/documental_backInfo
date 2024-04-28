@@ -17,17 +17,13 @@ public class DAOPrestamo {
 
         try{
             con = conexion.getConexion();        
-            ps = con.prepareStatement("INSERT INTO prestamo (ID, FechaPrestamo, FechaRegreso, IDTexto, IDEstudiante) VALUES (?,?,?,?,?)");
+            ps = con.prepareStatement("INSERT INTO prestamo (ID, FechaPrestamo, FechaRegreso, IDTexto, IDEstudiante, Estado) VALUES (?,?,?,?,?,?)");
             ps.setString(1, prestamo.getID());
-
-            java.sql.Date sqlPrestamo = new java.sql.Date(prestamo.getFechaPrestamo().getTime());
-            ps.setDate(2, sqlPrestamo);
-
-            java.sql.Date sqlRegreso = new java.sql.Date(prestamo.getFechaRegreso().getTime());
-            ps.setDate(3, sqlRegreso);
-
+            ps.setString(2, prestamo.getFechaPrestamo());
+            ps.setString(3, prestamo.getFechaRegreso());
             ps.setString(4, prestamo.getIDTexto());
             ps.setString(5, prestamo.getIDEstudiante());
+            ps.setString(6, prestamo.getEstado());
                         
             int res = ps.executeUpdate();
             if (res>0) {
@@ -55,16 +51,28 @@ public class DAOPrestamo {
             while(rs.next()){
                 Prestamo prestamo = new Prestamo();
                 prestamo.setID(rs.getString("ID"));
-                prestamo.setFechaPrestamo(rs.getDate("FechaPrestamo"));
-                prestamo.setFechaRegreso(rs.getDate("FechaRegreso"));
+                prestamo.setFechaPrestamo(rs.getString("FechaPrestamo"));
+                prestamo.setFechaRegreso(rs.getString("FechaRegreso"));
                 prestamo.setIDTexto(rs.getString("IDTexto"));
                 prestamo.setIDEstudiante(rs.getString("IDEstudiante"));
+                prestamo.setEstado(rs.getString("Estado"));
                 prestamos.add(prestamo);
             }
             return prestamos;
         }catch(Exception e){
             e.printStackTrace();
             return null;
+        }finally {
+            try{
+                if (!con.isClosed()){
+                    con.close();
+                    ps.close();
+                    rs.close();
+                }
+
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
         }
     }
     
@@ -93,12 +101,9 @@ public class DAOPrestamo {
         try{
             con = conexion.getConexion();
             ps = con.prepareStatement("UPDATE prestamo SET FechaPrestamo = ?, FechaRegreso = ?, IDTexto = ?, IDEstudiante = ? WHERE ID = ?");
-            
-            java.sql.Date sqlPrestamo = new java.sql.Date(prestamo.getFechaPrestamo().getTime());
-            ps.setDate(1, sqlPrestamo);
 
-            java.sql.Date sqlRegreso = new java.sql.Date(prestamo.getFechaRegreso().getTime());
-            ps.setDate(2, sqlRegreso);
+            ps.setString(1, prestamo.getFechaPrestamo());
+            ps.setString(2, prestamo.getFechaRegreso());
 
             ps.setString(3, prestamo.getIDTexto());
             ps.setString(4, prestamo.getIDEstudiante());
@@ -115,5 +120,80 @@ public class DAOPrestamo {
             return false;
         }
     }
+
+    public Prestamo devolucion(String ID){
+        Connection connection = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try{
+            connection = conexion.getConexion();
+            ps = connection.prepareStatement("SELECT * FROM prestamo WHERE IDTexto = ?");
+            ps.setString(1, ID);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                Prestamo prestamo = new Prestamo();
+                prestamo.setID(rs.getString("ID"));
+                prestamo.setFechaPrestamo(rs.getString("FechaPrestamo"));
+                prestamo.setFechaRegreso(rs.getString("FechaRegreso"));
+                prestamo.setIDTexto(rs.getString("IDTexto"));
+                prestamo.setIDEstudiante(rs.getString("IDEstudiante"));
+                prestamo.setEstado(rs.getString("Estado"));
+                return prestamo;
+            }else{
+                return null;
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public boolean confirmarDevolucion(String id) {
+        Connection connection = null;
+        PreparedStatement ps = null;
+
+        try{
+            connection = conexion.getConexion();
+            ps = connection.prepareStatement("UPDATE prestamo SET Estado = 'Devuelto' WHERE ID = ?");
+            ps.setString(1, id);
+            int res = ps.executeUpdate();
+            if(res>0){
+                return true;
+            }else{
+                return false;
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+
+    }
+
+    public boolean libroDisponible(String codigo){
+        Connection connection = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try{
+            connection = conexion.getConexion();
+            ps = connection.prepareStatement("select Estado from prestamo as p, texto as t where p.IDTexto = t.ID and t.Codigo = ?;");
+            ps.setString(1, codigo);
+            rs = ps.executeQuery();
+            if(rs.next()) {
+                if (rs.getString("Estado").equals("Prestado")) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+            return false;
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
+
 
 }

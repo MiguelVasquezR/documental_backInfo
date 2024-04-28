@@ -20,15 +20,17 @@ public class ControladorPelicula {
 
     public static JsonObject crearPelicula(Request request, Response response) {
         Pelicula p = gson.fromJson(request.body(), Pelicula.class);
-        p.setID(UUID.randomUUID().toString());        
+        p.setID(UUID.randomUUID().toString());
+        JsonObject jsonObject = new JsonObject();
 
         String mensaje = "";
         if (daoPelicula.crearPelicula(p)) {
             mensaje = "Pelicula creada";
+            jsonObject.addProperty("IDPelicula",p.getID());
         } else {
             mensaje = "Error al crear pelicula";
         }
-        JsonObject jsonObject = new JsonObject();
+
         jsonObject.addProperty(mensaje, "Pelicula creada");
         return jsonObject;
     }

@@ -1,5 +1,7 @@
 package cd.Controladores;
 
+import cd.DAO.DAOTexto;
+import cd.Modelo.Texto;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -61,5 +63,26 @@ public class ControladorPrestamo {
         jsonObject.addProperty("mensaje", mensaje);
         return jsonObject;
     }
-    
+
+    public static String devolverPrestamo(Request request, Response response) {
+        String codigo = request.queryParams("codigo");
+
+        DAOTexto daoTexto = new DAOTexto();
+        JsonObject texto = daoTexto.obtenerLibroByCodigo(codigo);
+        Prestamo prestamo = daoPrestamo.devolucion(texto.get("IDTexto").getAsString());
+        return gson.toJson(prestamo);
+    }
+
+    public static JsonObject editarDevolucion(Request request, Response response) {
+        String id = request.queryParams("id");
+        JsonObject jsonObject = new JsonObject();
+        String mensaje = "";
+        if(daoPrestamo.confirmarDevolucion(id)){
+            mensaje = "Devolucion confirmada";
+        }else{
+            mensaje = "Error al confirmar devolucion";
+        }
+        jsonObject.addProperty("mensaje", mensaje);
+        return jsonObject;
+    }
 }

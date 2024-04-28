@@ -25,9 +25,16 @@ public class ControladorGenero {
         }        
     }
 
+    public static String listarGeneros(Request req, Response res){
+        return  gson.toJson(daoGenero.obtenerGeneros());
+    }
+
     public static JsonObject crearGenero(Request req, Response res){
         Genero genero = gson.fromJson(req.body(), Genero.class);
         genero.setID(UUID.randomUUID().toString());
+
+        System.out.println(genero.toString());
+
         String mensaje = "";
         if(daoGenero.crearGenero(genero)){            
             mensaje = "Genero creado";

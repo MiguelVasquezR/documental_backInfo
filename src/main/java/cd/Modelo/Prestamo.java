@@ -4,21 +4,15 @@ import java.util.Date;
 
 public class Prestamo {
     private String ID;
-    private Date fechaPrestamo;
-    private Date fechaRegreso;
+    private String fechaPrestamo;
+    private String fechaRegreso;
     private String IDEstudiante;
     private String IDTexto;
+    private String Estado;
 
     public Prestamo() {
     }
-    
-    public Prestamo(String ID, Date fechaPrestamo, Date fechaRegreso, String IDEstudiante, String IDTexto) {
-        this.ID = ID;
-        this.fechaPrestamo = fechaPrestamo;
-        this.fechaRegreso = fechaRegreso;
-        this.IDEstudiante = IDEstudiante;
-        this.IDTexto = IDTexto;
-    }
+
     
     public String getID() {
         return ID;
@@ -28,19 +22,19 @@ public class Prestamo {
         this.ID = ID;
     }
 
-    public Date getFechaPrestamo() {
+    public String getFechaPrestamo() {
         return fechaPrestamo;
     }
 
-    public void setFechaPrestamo(Date fechaPrestamo) {
+    public void setFechaPrestamo(String fechaPrestamo) {
         this.fechaPrestamo = fechaPrestamo;
     }
 
-    public Date getFechaRegreso() {
+    public String getFechaRegreso() {
         return fechaRegreso;
     }
 
-    public void setFechaRegreso(Date fechaRegreso) {
+    public void setFechaRegreso(String fechaRegreso) {
         this.fechaRegreso = fechaRegreso;
     }
 
@@ -58,6 +52,19 @@ public class Prestamo {
 
     public void setIDTexto(String IDTexto) {
         this.IDTexto = IDTexto;
+    }
+
+    public void setEstado(String Estado){
+        this.Estado = Estado;
+    }
+
+    public String getEstado(){
+        return Estado;
+    }
+
+    @Override
+    public String toString() {
+        return "Prestamo{" + "ID=" + ID + ", fechaPrestamo=" + fechaPrestamo + ", fechaRegreso=" + fechaRegreso + ", IDEstudiante=" + IDEstudiante + ", IDTexto=" + IDTexto + ", Estado=" + Estado + '}';
     }
     
 }

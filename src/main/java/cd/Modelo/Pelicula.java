@@ -3,15 +3,17 @@ package cd.Modelo;
 public class Pelicula {
 
     private String ID;
-    private String Codigo;
-    private String Titulo;
-    private String Director;    
-    private int Ano;    
-    private String Proviene;
-    private String Genero;
-    private String LinkFoto;
+    private int ano;
+    private String codigo;
+    private String titulo;
+    private String origen;
+    private String portada;
+    private String tipo;
+    private String IDAutor;
 
-    public Pelicula() {}
+    public Pelicula() {
+
+    }
 
     public String getID() {
         return ID;
@@ -21,65 +23,73 @@ public class Pelicula {
         this.ID = ID;
     }
 
-    public String getCodigo() {
-        return Codigo;
+    public int getAno() {
+        return ano;
     }
 
-    public void setCodigo(String Codigo) {
-        this.Codigo = Codigo;
+    public void setAno(int ano) {
+        this.ano = ano;
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
     public String getTitulo() {
-        return Titulo;
+        return titulo;
     }
 
-    public void setTitulo(String Titulo) {
-        this.Titulo = Titulo;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
-    public String getDirector() {
-        return Director;
+    public String getOrigen() {
+        return origen;
     }
 
-    public void setDirector(String Director) {
-        this.Director = Director;
+    public void setOrigen(String origen) {
+        this.origen = origen;
     }
 
-    public int getAno() {
-        return Ano;
+    public String getPortada() {
+        return portada;
     }
 
-    public void setAno(int Ano) {
-        this.Ano = Ano;
+    public void setPortada(String portada) {
+        this.portada = portada;
     }
 
-    public String getProviene() {
-        return Proviene;
+    public String getTipo() {
+        return tipo;
     }
 
-    public void setProviene(String Proviene) {
-        this.Proviene = Proviene;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
-    public String getGenero() {
-        return Genero;
+    public String getIDAutor() {
+        return IDAutor;
     }
 
-    public void setGenero(String Genero) {
-        this.Genero = Genero;
-    }
-
-    public String getLinkFoto() {
-        return LinkFoto;
-    }
-
-    public void setLinkFoto(String LinkFoto) {
-        this.LinkFoto = LinkFoto;
+    public void setIDAutor(String IDAutor) {
+        this.IDAutor = IDAutor;
     }
 
     @Override
     public String toString() {
-        return "Pelicula{" + "ID=" + ID + ", Codigo=" + Codigo + ", Titulo=" + Titulo + ", Director=" + Director + ", Ano=" + Ano + ", Proviene=" + Proviene + ", Genero=" + Genero + ", LinkFoto=" + LinkFoto + '}';
+        return "Pelicula{" +
+                "ID='" + ID + '\'' +
+                ", ano=" + ano +
+                ", codigo='" + codigo + '\'' +
+                ", titulo='" + titulo + '\'' +
+                ", origen='" + origen + '\'' +
+                ", portada='" + portada + '\'' +
+                ", tipo='" + tipo + '\'' +
+                ", IDAutor='" + IDAutor + '\'' +
+                '}';
     }
-
 }

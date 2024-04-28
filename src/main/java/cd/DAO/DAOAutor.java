@@ -35,7 +35,7 @@ public class DAOAutor {
         }
     }
     
-    public boolean crearAutor(Autor autor){
+    public String crearAutor(Autor autor){
         PreparedStatement ps = null;
         Connection c = null;
         try{
@@ -47,13 +47,13 @@ public class DAOAutor {
             ps.setString(4, autor.getMaterno());
             int res = ps.executeUpdate();            
             if (res>0) {
-                return true;
+                return autor.getID();
             }else{
-                return false;
+                return "Error al crear autor";
             }            
         }catch(Exception e){
             e.printStackTrace();
-            return false;
+            return "Error al crear autor";
         }
     }
 
@@ -97,5 +97,30 @@ public class DAOAutor {
             return false;
         }
     }
+
+    public Autor obtenerAutor(String id){
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Connection c = null;
+        try{
+            c = conexion.getConexion();
+            ps = c.prepareStatement("SELECT * FROM autor WHERE ID = ?");
+            ps.setString(1, id);
+            rs = ps.executeQuery();
+            Autor autor = null;
+            while(rs.next()){
+                autor = new Autor();
+                autor.setID(rs.getString(1));
+                autor.setNombre(rs.getString(2));
+                autor.setPaterno(rs.getString(3));
+                autor.setMaterno(rs.getString(4));
+            }
+            return autor;
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 
 }
