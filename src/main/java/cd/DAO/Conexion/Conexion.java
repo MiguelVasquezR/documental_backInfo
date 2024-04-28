@@ -13,6 +13,7 @@ public class Conexion {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection c = java.sql.DriverManager.getConnection(url, user, password);
+            System.out.println("Conexion exitosa");
             return c;
         } catch (Exception e) {
             e.printStackTrace();
