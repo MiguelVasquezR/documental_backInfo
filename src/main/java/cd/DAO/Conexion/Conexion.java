@@ -5,9 +5,9 @@ import java.lang.Exception;
 
 public class Conexion {
 
-    private String url = "jdbc:mysql://localhost:3306/centroDocumental";
-    private String user = "root";
-    private String password = "FormulaUno";
+    private String url = "documental.mysql.database.azure.com";
+    private String user = "miguel";
+    private String password = "Letras2001";
 
     public Connection getConexion() {
         try {
