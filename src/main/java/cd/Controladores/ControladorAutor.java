@@ -52,6 +52,7 @@ public class ControladorAutor {
     
     public static JsonObject editarAutor(Request req, Response res){
         Autor autor = gson.fromJson(req.body(), Autor.class);
+        System.out.println(autor.getID());
         String mensaje = "";
         if(daoAutor.editarAutor(autor)){
             mensaje = "Autor editado";

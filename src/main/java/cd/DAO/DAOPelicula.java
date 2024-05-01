@@ -60,6 +60,7 @@ public class DAOPelicula {
                 jsonObject.addProperty("Nombre", rs.getString("Nombre"));
                 jsonObject.addProperty("Paterno", rs.getString("Paterno"));
                 jsonObject.addProperty("Materno", rs.getString("Materno"));
+                System.out.println("res " + jsonObject.toString());
                 peliculas.add(jsonObject);
             }
             return  peliculas;
@@ -93,15 +94,14 @@ public class DAOPelicula {
         PreparedStatement ps = null;
         try {
             con = conexion.getConexion();
-            ps = con.prepareStatement("UPDATE pelicula SET Codigo = ?, Titulo = ?, Tipo = ?, Ano = ?, Proviene = ?, LinkFoto = ?, IDAutor = ? WHERE ID = ?");
+            ps = con.prepareStatement("UPDATE pelicula SET Codigo = ?, Titulo = ?, Tipo = ?, Ano = ?, Proviene = ?, IDAutor = ? WHERE ID = ?");
             ps.setString(1, pelicula.getCodigo());
             ps.setString(2, pelicula.getTitulo());
             ps.setString(3, pelicula.getTipo());
             ps.setInt(4, pelicula.getAno());
             ps.setString(5, pelicula.getOrigen());
-            ps.setString(6, pelicula.getPortada());
-            ps.setString(7, pelicula.getIDAutor());
-            ps.setString(8, pelicula.getID());
+            ps.setString(6, pelicula.getIDAutor());
+            ps.setString(7, pelicula.getID());
             int res = ps.executeUpdate();
             if (res > 0) {
                 return true;
@@ -114,6 +114,38 @@ public class DAOPelicula {
         }
     }
 
+
+    public JsonObject obtenerPeliculaByCodigo(String codigo) {
+        JsonObject data = new JsonObject();
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try{
+            con = conexion.getConexion();
+            ps = con.prepareStatement("select p.ID as IDPelicula, p.Codigo, p.Titulo, p.Tipo, p.Ano, p.Proviene, p.IDAutor, a.Nombre, a.Paterno, a.Materno from pelicula as p, autor as a where p.IDAutor = a.ID and Codigo = ?");
+            ps.setString(1, codigo);
+            rs = ps.executeQuery();
+            if (rs.next()){
+                data.addProperty("IDPelicula", rs.getString("IDPelicula"));
+                data.addProperty("Codigo", rs.getString("Codigo"));
+                data.addProperty("Titulo", rs.getString("Titulo"));
+                data.addProperty("Tipo", rs.getString("Tipo"));
+                data.addProperty("Ano", rs.getInt("Ano"));
+                data.addProperty("Proviene", rs.getString("Proviene"));
+                data.addProperty("IDAutor", rs.getString("IDAutor"));
+                data.addProperty("Nombre", rs.getString("Nombre"));
+                data.addProperty("Paterno", rs.getString("Paterno"));
+                data.addProperty("Materno", rs.getString("Materno"));
+                return data;
+            }else{
+                return null;
+            }
+        }catch (Exception e){
+            System.out.printf(e.getMessage());
+            return null;
+        }
+    }
 
 
 

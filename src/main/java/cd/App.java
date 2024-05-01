@@ -47,6 +47,11 @@ public class App {
             get("/informacion-tabla", ControladorTexto::textoInformacionTabla);
             get("/codigo", ControladorTexto::obtenerTextoByCodigo);
             get("/prestamo", ControladorTexto::informacionPrestamo);
+
+
+            //Métodos para editar el texto
+            get("/by-codigo", ControladorTexto::obtenerTextoCodigo);
+            put("/editar", ControladorTexto::editarTexto);
         });
 
         path("/autor", () -> {
@@ -71,8 +76,9 @@ public class App {
         path("/pelicula", () -> {
             get("/listar", ControladorPelicula::obtenerPeliculas);
             post("/crear", ControladorPelicula::crearPelicula);
-            delete("/eliminar/:id", ControladorPelicula::eliminarPelicula);
+            delete("/eliminar", ControladorPelicula::eliminarPelicula);
             put("/editar", ControladorPelicula::editarPelicula);
+            get("/by-codigo", ControladorPelicula::obtenerPorCodigo);
         });
 
         path("/genero", () -> {

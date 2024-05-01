@@ -36,16 +36,14 @@ public class ControladorPelicula {
     }
     
     public static JsonObject eliminarPelicula(Request request, Response response) {
-        String id = request.params("id");
-        String mensaje = "";
+        String id = request.queryParams("id");
+        JsonObject respuesta = new JsonObject();
         if (daoPelicula.eliminarPelicula(id)) {
-            mensaje = "Pelicula eliminada";
+            respuesta.addProperty("mensaje", "Pelicula eliminada");
         } else {
-            mensaje = "Error al eliminar pelicula";
+            respuesta.addProperty("mensaje", "Error al eliminar pelicula");
         }
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty(mensaje, "Pelicula eliminada");
-        return jsonObject;
+        return respuesta;
     }
 
     public static JsonObject editarPelicula(Request request, Response response) {
@@ -61,4 +59,9 @@ public class ControladorPelicula {
         return jsonObject;
     }
 
+    public static Object obtenerPorCodigo(Request request, Response response) {
+
+        String codigo = request.queryParams("codigo");
+        return gson.toJson(daoPelicula.obtenerPeliculaByCodigo(codigo));
+    }
 }

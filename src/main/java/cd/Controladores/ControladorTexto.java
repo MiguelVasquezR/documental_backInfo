@@ -66,19 +66,6 @@ public class ControladorTexto {
         return respuesta;
     }
 
-    public static JsonObject editarTexto(Request req, Response res) {
-        JsonObject respuesta = new JsonObject();
-        Texto texto = gson.fromJson(req.body(), Texto.class);
-        String mensaje = "";
-        if (daoTexto.editarTexto(texto)) {
-            mensaje = "Texto editado";
-        } else {
-            mensaje = "Error al editar texto";
-        }
-        respuesta.addProperty("mensaje", mensaje);
-        return respuesta;
-    }
-
     public static JsonObject eliminarTexto(Request req, Response res) {
         JsonObject respuesta = new JsonObject();
         String id = req.queryParams("id");
@@ -131,6 +118,26 @@ public class ControladorTexto {
     public static String informacionPrestamo(Request req, Response res){
         String id = req.queryParams("id");
         return gson.toJson(daoTexto.obtenerInfoPrestamo(id));
+    }
+
+
+    //Método para editar el texto
+    public static JsonObject editarTexto(Request req, Response res){
+        JsonObject respuesta = new JsonObject();
+        Texto texto = gson.fromJson(req.body(), Texto.class);
+        System.out.println(texto.toString());
+        if (daoTexto.editarTexto(texto)){
+         respuesta.addProperty("mensaje", "Texto editado");
+        }else{
+            respuesta.addProperty("mensaje", "Error al editar texto");
+
+        }
+        return respuesta;
+    }
+
+    public static String obtenerTextoCodigo(Request req, Response res){
+        String codigo = req.queryParams("codigo");
+        return gson.toJson(daoTexto.obtenerTextoCodigo(codigo));
     }
 
 

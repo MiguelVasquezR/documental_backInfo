@@ -70,19 +70,15 @@ public class DAOTexto {
         PreparedStatement ps = null;
         try{
             con = conexion.getConexion();
-            ps = con.prepareStatement("UPDATE texto SET LinkFoto = ?, Titulo = ?, Ano = ?, Codigo = ?, IDAutor = ?, NumPaginas = ?, Ubicacion = ?, Disponibilidad = ?, Resena = ?, Tipo = ?, Atributos = ? WHERE ID = ?");
-            ps.setString(1, texto.getLinkFoto());
+            ps = con.prepareStatement("UPDATE texto SET Codigo = ?, Titulo = ?, NumPaginas = ?, Resena = ?, Ano = ?, Ubicacion = ?, Tipo = ? WHERE ID = ?");
+            ps.setString(1, texto.getCodigo());
             ps.setString(2, texto.getTitulo());
-            ps.setInt(3, texto.getAno());
-            ps.setString(4, texto.getCodigo());
-            ps.setString(5, texto.getIDAutor());
-            ps.setInt(6, texto.getNumPaginas());
-            ps.setString(7, texto.getUbicacion());
-            ps.setString(8, texto.getDisponibilidad());
-            ps.setString(9, texto.getResena());
-            ps.setString(10, texto.getTipo());            
-            ps.setString(11, texto.getAtributos());
-            ps.setString(12, texto.getID());
+            ps.setInt(3, texto.getNumPaginas());
+            ps.setString(4, texto.getResena());
+            ps.setInt(5, texto.getAno());
+            ps.setString(6, texto.getUbicacion());
+            ps.setString(7, texto.getTipo());
+            ps.setString(8, texto.getID());
             int res = ps.executeUpdate();
             if (res>0) {
                 return true;                
@@ -314,6 +310,51 @@ public class DAOTexto {
             System.out.println(e.getMessage());
             return "";
         }
+    }
+
+    //Método para obtener el texto por su código
+    public JsonObject obtenerTextoCodigo(String codigo){
+        JsonObject texto = new JsonObject();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try{
+            connection = conexion.getConexion();
+            preparedStatement = connection.prepareStatement("select t.ID as IDTexto, t.Titulo, t.Ano, t.Codigo, t.NumPaginas, t.Ubicacion, t.Resena, t.Tipo, a.Nombre, a.Paterno, a.Materno, a.ID as IDAutor from Texto as t, Autor as a where t.IDAutor = a.ID and t.Codigo = ?;");
+            preparedStatement.setString(1, codigo);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()){
+                texto.addProperty("IDTexto", resultSet.getString("IDTexto"));
+                texto.addProperty("Titulo", resultSet.getString("Titulo"));
+                texto.addProperty("Ano", resultSet.getInt("Ano"));
+                texto.addProperty("Codigo", resultSet.getString("Codigo"));
+                texto.addProperty("NumPaginas", resultSet.getInt("NumPaginas"));
+                texto.addProperty("Ubicacion", resultSet.getString("Ubicacion"));
+                texto.addProperty("Resena", resultSet.getString("Resena"));
+                texto.addProperty("Tipo", resultSet.getString("Tipo"));
+
+                texto.addProperty("Nombre", resultSet.getString("Nombre"));
+                texto.addProperty("Paterno", resultSet.getString("Paterno"));
+                texto.addProperty("Materno", resultSet.getString("Materno"));
+                texto.addProperty("IDAutor", resultSet.getString("IDAutor"));
+                return texto;
+            }else{
+                return null;
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }finally {
+            try{
+                connection.close();
+                if (connection.isClosed()){
+                    conexion.cerrarConexion();
+                }
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
+        }
+
     }
 
 

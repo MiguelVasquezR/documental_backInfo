@@ -5,19 +5,30 @@ import java.lang.Exception;
 
 public class Conexion {
 
-    private String url = "documental.mysql.database.azure.com";
-    private String user = "miguel";
-    private String password = "Letras2001";
+    private String url = "jdbc:mysql://localhost:3306/centroDocumental";
+    private String user = "root";
+    private String password = "FormulaUno";
+
+    private Connection connection;
 
     public Connection getConexion() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection c = java.sql.DriverManager.getConnection(url, user, password);
+            connection = java.sql.DriverManager.getConnection(url, user, password);
             System.out.println("Conexion exitosa");
-            return c;
+            return connection;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public void cerrarConexion() {
+        try {
+            connection.close();
+            System.out.println("Conexión cerrada en Conexion");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
