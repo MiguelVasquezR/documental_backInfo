@@ -1,7 +1,5 @@
 package cd.Modelo;
 
-import java.util.Date;
-
 public class Prestamo {
     private String ID;
     private String fechaPrestamo;

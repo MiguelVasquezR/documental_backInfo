@@ -1,15 +1,11 @@
 package cd.DAO;
 
-import static spark.Spark.redirect;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
-
 import cd.DAO.Conexion.Conexion;
 import cd.Modelo.Estudiante;
-import com.google.gson.JsonObject;
 
 public class DAOEstudiantes {
 

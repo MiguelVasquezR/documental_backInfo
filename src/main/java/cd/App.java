@@ -101,7 +101,7 @@ public class App {
             datos.addProperty("titulo", "El principito");
             datos.addProperty("fechaSolicitud", "2021-06-01");
             datos.addProperty("fechaDevolucion", "2021-06-15");
-           notificacion.sendEmialDevolucion("mvrosas01@gmail.com", datos);
+            notificacion.sendEmialDevolucion("mvrosas01@gmail.com", datos);
             return "Correo Enviado";
         });
 
