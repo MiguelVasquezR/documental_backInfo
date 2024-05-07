@@ -6,9 +6,9 @@ import java.lang.Exception;
 public class Conexion {
 
 
-    private String url = "jdbc:mysql://documental.mysql.database.azure.com:3306/centrodocumental?useSSL=true";
-    private String user = "miguel";
-    private String password = "Maggpachito18";
+    private String url = "jdbc:mysql://root:VLPhzuQPgjPdEZIKERdQRMwpGLYviSXm@roundhouse.proxy.rlwy.net:45385/centroDocumental";
+    private String user = "root";
+    private String password = "VLPhzuQPgjPdEZIKERdQRMwpGLYviSXm";
 
     private Connection connection;
 
