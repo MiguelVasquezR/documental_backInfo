@@ -9,11 +9,12 @@ import java.lang.Exception;
 public class Conexion {
 
 
-    private String url;
-    private String user;
-    private String password;
+    private String url ="jdbc:mysql://roundhouse.proxy.rlwy.net:45385/centroDocumental";
+    private String user = "root";
+    private String password = "VLPhzuQPgjPdEZIKERdQRMwpGLYviSXm";
     private Connection connection;
 
+    /*
     public Conexion() {
         Properties prop = new Properties();
         try (InputStream input = getClass().getClassLoader().getResourceAsStream("cd/config.properties")) {
@@ -26,6 +27,7 @@ public class Conexion {
             ex.printStackTrace();
         }
     }
+     */
 
     public Connection getConexion() {
         try {
@@ -34,6 +36,7 @@ public class Conexion {
             System.out.println("Conexion exitosa");
             return connection;
         } catch (Exception e) {
+            System.out.println("Error en la conexión");
             e.printStackTrace();
             return null;
         }
