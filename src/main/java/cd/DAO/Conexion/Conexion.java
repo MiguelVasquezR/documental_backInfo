@@ -1,16 +1,31 @@
 package cd.DAO.Conexion;
 
 import java.sql.Connection;
+import java.util.Properties;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.Exception;
 
 public class Conexion {
 
 
-    private String url = "jdbc:mysql://root:VLPhzuQPgjPdEZIKERdQRMwpGLYviSXm@roundhouse.proxy.rlwy.net:45385/centroDocumental";
-    private String user = "root";
-    private String password = "VLPhzuQPgjPdEZIKERdQRMwpGLYviSXm";
-
+    private String url;
+    private String user;
+    private String password;
     private Connection connection;
+
+    public Conexion() {
+        Properties prop = new Properties();
+        try (InputStream input = getClass().getClassLoader().getResourceAsStream("cd/config.properties")) {
+            prop.load(input);
+            System.out.println("Properties cargado");
+            url = prop.getProperty("db.url");
+            user = prop.getProperty("db.user");
+            password = prop.getProperty("db.password");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
 
     public Connection getConexion() {
         try {

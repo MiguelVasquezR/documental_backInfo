@@ -25,3 +25,4 @@ application.yml
 # Otros archivos y directorios específicos del proyecto
 /logs/
 /out/
+config.properties
