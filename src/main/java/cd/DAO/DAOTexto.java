@@ -320,10 +320,11 @@ public class DAOTexto {
         ResultSet resultSet = null;
         try{
             connection = conexion.getConexion();
-            preparedStatement = connection.prepareStatement("select t.ID as IDTexto, t.Titulo, t.Ano, t.Codigo, t.NumPaginas, t.Ubicacion, t.Resena, t.Tipo, a.Nombre, a.Paterno, a.Materno, a.ID as IDAutor from Texto as t, Autor as a where t.IDAutor = a.ID and t.Codigo = ?;");
+            preparedStatement = connection.prepareStatement("select l.LinkFoto, t.ID as IDTexto, t.Titulo, t.Ano, t.Codigo, t.NumPaginas, t.Ubicacion, t.Resena, t.Tipo, a.Nombre, a.Paterno, a.Materno, a.ID as IDAutor from Texto as t, Autor as a, Foto as l where t.IDAutor = a.ID and l.ID = t.LinkFoto and t.Codigo = ?;");
             preparedStatement.setString(1, codigo);
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()){
+                texto.addProperty("LinkFoto", resultSet.getString("LinkFoto"));
                 texto.addProperty("IDTexto", resultSet.getString("IDTexto"));
                 texto.addProperty("Titulo", resultSet.getString("Titulo"));
                 texto.addProperty("Ano", resultSet.getInt("Ano"));

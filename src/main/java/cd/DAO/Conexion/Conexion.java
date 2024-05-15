@@ -9,9 +9,9 @@ import java.lang.Exception;
 public class Conexion {
 
 
-    private String url ="jdbc:mysql://roundhouse.proxy.rlwy.net:45385/centroDocumental";
+    private String url ="jdbc:mysql://localhost:3306/centroDocumental";
     private String user = "root";
-    private String password = "VLPhzuQPgjPdEZIKERdQRMwpGLYviSXm";
+    private String password = "FormulaUno";
     private Connection connection;
 
     /*

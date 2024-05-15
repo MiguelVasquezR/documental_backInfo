@@ -187,7 +187,7 @@ public class DAOPrestamo {
                     return true;
                 }
             }
-            return false;
+            return true;
         }catch (Exception e){
             System.out.println(e.getMessage());
             return false;
