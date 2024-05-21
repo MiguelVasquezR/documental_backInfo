@@ -8,26 +8,11 @@ import java.lang.Exception;
 
 public class Conexion {
 
+    private String url = System.getenv("URL_DATABASES");
+    private String user = System.getenv("USER_DATABASES");
+    private String password = System.getenv("PASSWORD_DATABASES");
 
-    private String url ="jdbc:mysql://localhost:3306/centroDocumental";
-    private String user = "root";
-    private String password = "FormulaUno";
     private Connection connection;
-
-    /*
-    public Conexion() {
-        Properties prop = new Properties();
-        try (InputStream input = getClass().getClassLoader().getResourceAsStream("cd/config.properties")) {
-            prop.load(input);
-            System.out.println("Properties cargado");
-            url = prop.getProperty("db.url");
-            user = prop.getProperty("db.user");
-            password = prop.getProperty("db.password");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-     */
 
     public Connection getConexion() {
         try {

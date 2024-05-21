@@ -35,6 +35,15 @@ public class DAOPrestamo {
         }catch(Exception e){
             e.printStackTrace();
             return false;
+        }finally {
+            try{
+                con.close();
+                if (con.isClosed()){
+                    conexion.cerrarConexion();
+                }
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
         }
         
     }
@@ -46,7 +55,7 @@ public class DAOPrestamo {
         ResultSet rs = null;
         try{
             con = conexion.getConexion();
-            ps = con.prepareStatement("SELECT * FROM prestamo");
+            ps = con.prepareStatement("SELECT * FROM Prestamo");
             rs = ps.executeQuery();
             while(rs.next()){
                 Prestamo prestamo = new Prestamo();
@@ -92,6 +101,15 @@ public class DAOPrestamo {
         }catch(Exception e){
             e.printStackTrace();
             return false;
+        }finally {
+            try{
+                con.close();
+                if (con.isClosed()){
+                    conexion.cerrarConexion();
+                }
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -118,6 +136,15 @@ public class DAOPrestamo {
         }catch(Exception e){
             e.printStackTrace();
             return false;
+        }finally {
+            try{
+                con.close();
+                if (con.isClosed()){
+                    conexion.cerrarConexion();
+                }
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -148,6 +175,16 @@ public class DAOPrestamo {
             e.printStackTrace();
             return null;
         }
+        finally {
+            try{
+                connection.close();
+                if (connection.isClosed()){
+                    conexion.cerrarConexion();
+                }
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
     public boolean confirmarDevolucion(String id) {
@@ -167,6 +204,15 @@ public class DAOPrestamo {
         }catch (Exception e){
             System.out.println(e.getMessage());
             return false;
+        }finally {
+            try{
+                connection.close();
+                if (connection.isClosed()){
+                    conexion.cerrarConexion();
+                }
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
         }
 
     }
@@ -191,6 +237,16 @@ public class DAOPrestamo {
         }catch (Exception e){
             System.out.println(e.getMessage());
             return false;
+        }
+        finally {
+            try{
+                connection.close();
+                if (connection.isClosed()){
+                    conexion.cerrarConexion();
+                }
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
         }
     }
 

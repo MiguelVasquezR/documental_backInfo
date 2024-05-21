@@ -8,7 +8,15 @@ import cd.Controladores.ControladorGenero;
 import cd.Controladores.ControladorTexto;
 import cd.Controladores.ControladorPrestamo;
 import cd.Controladores.ControladorPelicula;
+import cd.DAO.Conexion.Conexion;
 import com.google.gson.JsonObject;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 public class App {
 
@@ -48,8 +56,6 @@ public class App {
             get("/codigo", ControladorTexto::obtenerTextoByCodigo);
             get("/prestamo", ControladorTexto::informacionPrestamo);
 
-
-            //Métodos para editar el texto
             get("/by-codigo", ControladorTexto::obtenerTextoCodigo);
             put("/editar", ControladorTexto::editarTexto);
         });
@@ -94,6 +100,8 @@ public class App {
             delete("/eliminar/:ID", ControladorFoto::eliminarFoto);
         });
 
+
+
         get("/correo", (req, res) -> {
            Notificacion notificacion = new Notificacion();
             JsonObject datos = new JsonObject();
@@ -106,6 +114,7 @@ public class App {
         });
 
     }
+
 
     static int getHerokuAssignedPort() {
         ProcessBuilder processBuilder = new ProcessBuilder();

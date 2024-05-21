@@ -25,6 +25,15 @@ public class DAOFoto {
         } catch (Exception e) {
             e.printStackTrace();
             return "Error al crear foto";
+        }finally {
+            try{
+                c.close();
+                if (c.isClosed()){
+                    conexion.cerrarConexion();
+                }
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -40,6 +49,15 @@ public class DAOFoto {
         } catch (Exception e) {
             e.printStackTrace();
             return "Error al eliminar foto";
+        }finally {
+            try{
+                c.close();
+                if (c.isClosed()){
+                    conexion.cerrarConexion();
+                }
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -64,6 +82,15 @@ public class DAOFoto {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }finally {
+            try{
+                c.close();
+                if (c.isClosed()){
+                    conexion.cerrarConexion();
+                }
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
         }
     }
     

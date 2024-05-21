@@ -33,6 +33,16 @@ public class DAOAutor {
             e.printStackTrace();
             return null;
         }
+        finally {
+            try{
+                c.close();
+                if (c.isClosed()){
+                    conexion.cerrarConexion();
+                }
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
+        }
     }
     
     public String crearAutor(Autor autor){
@@ -54,6 +64,15 @@ public class DAOAutor {
         }catch(Exception e){
             e.printStackTrace();
             return "Error al crear autor";
+        } finally {
+            try{
+                c.close();
+                if (c.isClosed()){
+                    conexion.cerrarConexion();
+                }
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -73,6 +92,15 @@ public class DAOAutor {
         }catch(Exception e){
             e.printStackTrace();
             return false;
+        }finally {
+            try{
+                c.close();
+                if (c.isClosed()){
+                    conexion.cerrarConexion();
+                }
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -95,6 +123,16 @@ public class DAOAutor {
         }catch(Exception e){
             e.printStackTrace();
             return false;
+        }
+        finally {
+            try{
+                c.close();
+                if (c.isClosed()){
+                    conexion.cerrarConexion();
+                }
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -119,6 +157,16 @@ public class DAOAutor {
         }catch(Exception e){
             e.printStackTrace();
             return null;
+        }
+        finally {
+            try{
+                c.close();
+                if (c.isClosed()){
+                    conexion.cerrarConexion();
+                }
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
         }
     }
 

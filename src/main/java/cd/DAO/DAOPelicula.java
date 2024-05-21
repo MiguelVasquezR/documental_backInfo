@@ -35,6 +35,15 @@ public class DAOPelicula {
         } catch (Exception e) {
             e.printStackTrace();
             return false;
+        }finally {
+            try{
+                con.close();
+                if (con.isClosed()){
+                    conexion.cerrarConexion();
+                }
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -67,6 +76,15 @@ public class DAOPelicula {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }finally {
+            try{
+                con.close();
+                if (con.isClosed()){
+                    conexion.cerrarConexion();
+                }
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -86,6 +104,15 @@ public class DAOPelicula {
         } catch (Exception e) {
             e.printStackTrace();
             return false;
+        }finally {
+            try{
+                con.close();
+                if (con.isClosed()){
+                    conexion.cerrarConexion();
+                }
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -111,6 +138,15 @@ public class DAOPelicula {
         } catch (Exception e) {
             e.printStackTrace();
             return false;
+        }finally {
+            try{
+                con.close();
+                if (con.isClosed()){
+                    conexion.cerrarConexion();
+                }
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -144,6 +180,15 @@ public class DAOPelicula {
         }catch (Exception e){
             System.out.printf(e.getMessage());
             return null;
+        }finally {
+            try{
+                con.close();
+                if (con.isClosed()){
+                    conexion.cerrarConexion();
+                }
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
         }
     }
 

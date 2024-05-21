@@ -33,6 +33,15 @@ public class DAOGenero {
         }catch(Exception e){
             System.out.println("Error en DAOGenero.obtenerGenerobyID: " + e.getMessage());
             return null;
+        }finally {
+            try{
+                con.close();
+                if (con.isClosed()){
+                    conexion.cerrarConexion();
+                }
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -55,6 +64,15 @@ public class DAOGenero {
         }catch(Exception e){
             System.out.println("Error en DAOGenero.crearGenero: " + e.getMessage());
             return false;
+        }finally {
+            try{
+                con.close();
+                if (con.isClosed()){
+                    conexion.cerrarConexion();
+                }
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -80,6 +98,15 @@ public class DAOGenero {
         }catch (Exception e){
             System.out.println(e.getMessage());
             return null;
+        }finally {
+            try{
+                con.close();
+                if (con.isClosed()){
+                    conexion.cerrarConexion();
+                }
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
         }
     }
 

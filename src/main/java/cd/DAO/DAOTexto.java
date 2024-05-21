@@ -43,6 +43,15 @@ public class DAOTexto {
         }catch(Exception e){
             e.printStackTrace();
             return "No Creado";
+        }finally {
+            try{
+                con.close();
+                if (con.isClosed()){
+                    conexion.cerrarConexion();
+                }
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -62,6 +71,15 @@ public class DAOTexto {
         }catch(Exception e){
             e.printStackTrace();
             return false;
+        }finally {
+            try{
+                con.close();
+                if (con.isClosed()){
+                    conexion.cerrarConexion();
+                }
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -88,6 +106,15 @@ public class DAOTexto {
         }catch(Exception e){
             e.printStackTrace();
             return false;
+        }finally {
+            try{
+                con.close();
+                if (con.isClosed()){
+                    conexion.cerrarConexion();
+                }
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -120,6 +147,15 @@ public class DAOTexto {
         }catch(Exception e){
             e.printStackTrace();
             return null;
+        }finally {
+            try{
+                con.close();
+                if (con.isClosed()){
+                    conexion.cerrarConexion();
+                }
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -147,6 +183,15 @@ public class DAOTexto {
         }catch (Exception e){
             System.out.println(e.getMessage());
             return null;
+        }finally {
+            try{
+                c.close();
+                if (c.isClosed()){
+                    conexion.cerrarConexion();
+                }
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
         }
 
     }
@@ -183,6 +228,15 @@ public class DAOTexto {
         }catch (Exception e){
             System.out.println(e.getMessage());
             return  null;
+        }finally {
+            try{
+                c.close();
+                if (c.isClosed()){
+                    conexion.cerrarConexion();
+                }
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -203,6 +257,15 @@ public class DAOTexto {
         }catch (Exception e){
             System.out.println(e.getMessage());
             return "";
+        }finally {
+            try{
+                c.close();
+                if (c.isClosed()){
+                    conexion.cerrarConexion();
+                }
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
         }
 
     }
@@ -211,7 +274,7 @@ public class DAOTexto {
         ArrayList<JsonObject> jsonObjects = new ArrayList<>();
         PreparedStatement ps;
         ResultSet rs;
-        Connection c;
+        Connection c=null;
 
         try{
             c = conexion.getConexion();
@@ -234,6 +297,15 @@ public class DAOTexto {
         }catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
+        }finally {
+            try{
+                c.close();
+                if (c.isClosed()){
+                    conexion.cerrarConexion();
+                }
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -265,6 +337,15 @@ public class DAOTexto {
         }catch (Exception e){
             System.out.println(e.getMessage());
             return  null;
+        }finally {
+            try{
+                c.close();
+                if (c.isClosed()){
+                    conexion.cerrarConexion();
+                }
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
         }
 
     }
@@ -287,6 +368,15 @@ public class DAOTexto {
         }catch (Exception e){
             System.out.println(e.getMessage());
             return null;
+        }finally {
+            try{
+                c.close();
+                if (c.isClosed()){
+                    conexion.cerrarConexion();
+                }
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -309,6 +399,15 @@ public class DAOTexto {
         }catch (Exception e) {
             System.out.println(e.getMessage());
             return "";
+        }finally {
+            try{
+                c.close();
+                if (c.isClosed()){
+                    conexion.cerrarConexion();
+                }
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
         }
     }
 
