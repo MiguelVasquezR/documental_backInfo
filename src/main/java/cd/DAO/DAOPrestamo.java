@@ -17,7 +17,7 @@ public class DAOPrestamo {
 
         try{
             con = conexion.getConexion();        
-            ps = con.prepareStatement("INSERT INTO prestamo (ID, FechaPrestamo, FechaRegreso, IDTexto, IDEstudiante, Estado) VALUES (?,?,?,?,?,?)");
+            ps = con.prepareStatement("INSERT INTO Prestamo (ID, FechaPrestamo, FechaRegreso, IDTexto, IDEstudiante, Estado) VALUES (?,?,?,?,?,?)");
             ps.setString(1, prestamo.getID());
             ps.setString(2, prestamo.getFechaPrestamo());
             ps.setString(3, prestamo.getFechaRegreso());
@@ -90,7 +90,7 @@ public class DAOPrestamo {
         PreparedStatement ps = null;
         try{
             con = conexion.getConexion();
-            ps = con.prepareStatement("DELETE FROM prestamo WHERE ID = ?");
+            ps = con.prepareStatement("DELETE FROM Prestamo WHERE ID = ?");
             ps.setString(1, id);
             int res = ps.executeUpdate();
             if (res>0) {
@@ -118,7 +118,7 @@ public class DAOPrestamo {
         PreparedStatement ps = null;
         try{
             con = conexion.getConexion();
-            ps = con.prepareStatement("UPDATE prestamo SET FechaPrestamo = ?, FechaRegreso = ?, IDTexto = ?, IDEstudiante = ? WHERE ID = ?");
+            ps = con.prepareStatement("UPDATE Prestamo SET FechaPrestamo = ?, FechaRegreso = ?, IDTexto = ?, IDEstudiante = ? WHERE ID = ?");
 
             ps.setString(1, prestamo.getFechaPrestamo());
             ps.setString(2, prestamo.getFechaRegreso());
@@ -155,7 +155,7 @@ public class DAOPrestamo {
 
         try{
             connection = conexion.getConexion();
-            ps = connection.prepareStatement("SELECT * FROM prestamo WHERE IDTexto = ?");
+            ps = connection.prepareStatement("SELECT * FROM Prestamo WHERE IDTexto = ?");
             ps.setString(1, ID);
             rs = ps.executeQuery();
             if(rs.next()){
@@ -193,7 +193,7 @@ public class DAOPrestamo {
 
         try{
             connection = conexion.getConexion();
-            ps = connection.prepareStatement("UPDATE prestamo SET Estado = 'Devuelto' WHERE ID = ?");
+            ps = connection.prepareStatement("UPDATE Prestamo SET Estado = 'Devuelto' WHERE ID = ?");
             ps.setString(1, id);
             int res = ps.executeUpdate();
             if(res>0){
@@ -223,7 +223,7 @@ public class DAOPrestamo {
         ResultSet rs = null;
         try{
             connection = conexion.getConexion();
-            ps = connection.prepareStatement("select Estado from prestamo as p, texto as t where p.IDTexto = t.ID and t.Codigo = ?;");
+            ps = connection.prepareStatement("select Estado from Prestamo as p, texto as t where p.IDTexto = t.ID and t.Codigo = ?;");
             ps.setString(1, codigo);
             rs = ps.executeQuery();
             if(rs.next()) {

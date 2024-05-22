@@ -17,7 +17,7 @@ public class DAOPelicula {
 
         try {
             con = conexion.getConexion();
-            ps = con.prepareStatement("INSERT INTO pelicula (ID, Codigo, Titulo, Tipo, Ano, Proviene, LinkFoto, IDAutor ) VALUE (?,?,?,?,?,?,?,?)");
+            ps = con.prepareStatement("INSERT INTO Pelicula (ID, Codigo, Titulo, Tipo, Ano, Proviene, LinkFoto, IDAutor ) VALUE (?,?,?,?,?,?,?,?)");
             ps.setString(1, pelicula.getID());
             ps.setString(2, pelicula.getCodigo());
             ps.setString(3, pelicula.getTitulo());
@@ -54,7 +54,7 @@ public class DAOPelicula {
         ResultSet rs = null;
         try {
             con = conexion.getConexion();
-            ps = con.prepareStatement("select p.ID, p.Codigo, p.Titulo, p.Tipo, p.Ano, p.Proviene, f.LinkFoto, a.Nombre, a.Paterno, a.Materno from pelicula as p, autor as a, foto as f where p.IDAutor = a.ID and f.ID = p.LinkFoto;");
+            ps = con.prepareStatement("select p.ID, p.Codigo, p.Titulo, p.Tipo, p.Ano, p.Proviene, f.LinkFoto, a.Nombre, a.Paterno, a.Materno from Pelicula as p, Autor as a, Foto as f where p.IDAutor = a.ID and f.ID = p.LinkFoto;");
             rs = ps.executeQuery();
             JsonObject jsonObject;
             while (rs.next()) {
@@ -93,7 +93,7 @@ public class DAOPelicula {
         PreparedStatement ps = null;
         try {
             con = conexion.getConexion();
-            ps = con.prepareStatement("DELETE FROM pelicula WHERE ID = ?");
+            ps = con.prepareStatement("DELETE FROM Pelicula WHERE ID = ?");
             ps.setString(1, id);
             int res = ps.executeUpdate();
             if (res > 0) {
@@ -121,7 +121,7 @@ public class DAOPelicula {
         PreparedStatement ps = null;
         try {
             con = conexion.getConexion();
-            ps = con.prepareStatement("UPDATE pelicula SET Codigo = ?, Titulo = ?, Tipo = ?, Ano = ?, Proviene = ?, IDAutor = ? WHERE ID = ?");
+            ps = con.prepareStatement("UPDATE Pelicula SET Codigo = ?, Titulo = ?, Tipo = ?, Ano = ?, Proviene = ?, IDAutor = ? WHERE ID = ?");
             ps.setString(1, pelicula.getCodigo());
             ps.setString(2, pelicula.getTitulo());
             ps.setString(3, pelicula.getTipo());
@@ -159,7 +159,7 @@ public class DAOPelicula {
 
         try{
             con = conexion.getConexion();
-            ps = con.prepareStatement("select p.ID as IDPelicula, p.Codigo, p.Titulo, p.Tipo, p.Ano, p.Proviene, p.IDAutor, a.Nombre, a.Paterno, a.Materno from pelicula as p, autor as a where p.IDAutor = a.ID and Codigo = ?");
+            ps = con.prepareStatement("select p.ID as IDPelicula, p.Codigo, p.Titulo, p.Tipo, p.Ano, p.Proviene, p.IDAutor, a.Nombre, a.Paterno, a.Materno from Pelicula as p, Autor as a where p.IDAutor = a.ID and Codigo = ?");
             ps.setString(1, codigo);
             rs = ps.executeQuery();
             if (rs.next()){

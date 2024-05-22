@@ -17,7 +17,7 @@ public class DAOGenero {
         Connection con = null;
         try{
             con = conexion.getConexion();
-            String sql = "SELECT ID FROM genero WHERE Nombre = ?";
+            String sql = "SELECT ID FROM Genero WHERE Nombre = ?";
             ps = con.prepareStatement(sql);
             ps.setString(1, nombre);
             rs = ps.executeQuery();
@@ -50,7 +50,7 @@ public class DAOGenero {
         PreparedStatement ps = null;
         try{
             con = conexion.getConexion();
-            String sql = "INSERT INTO genero (ID, Nombre, IDPelicula) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO Genero (ID, Nombre, IDPelicula) VALUES (?, ?, ?)";
             ps = con.prepareStatement(sql);
             ps.setString(1, genero.getID());
             ps.setString(2, genero.getNombre());
@@ -84,7 +84,7 @@ public class DAOGenero {
 
         try{
             con = conexion.getConexion();
-            String sql = "SELECT * FROM genero";
+            String sql = "SELECT * FROM Genero";
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while(rs.next()){

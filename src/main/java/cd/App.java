@@ -8,20 +8,18 @@ import cd.Controladores.ControladorGenero;
 import cd.Controladores.ControladorTexto;
 import cd.Controladores.ControladorPrestamo;
 import cd.Controladores.ControladorPelicula;
-import cd.DAO.Conexion.Conexion;
 import com.google.gson.JsonObject;
+import spark.Spark;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
+import java.io.File;
+import java.io.FileInputStream;
+import java.security.KeyStore;
 
 public class App {
 
     public static void main(String[] args) {
         port(getHerokuAssignedPort());
+
         options("/*", (request, response) -> {
             String accessControlRequestHeaders = request.headers("Access-Control-Request-Headers");
             if (accessControlRequestHeaders != null) {

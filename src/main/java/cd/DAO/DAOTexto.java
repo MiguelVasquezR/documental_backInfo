@@ -21,7 +21,7 @@ public class DAOTexto {
 
         try{
             con = conexion.getConexion();        
-            ps = con.prepareStatement("INSERT INTO texto (ID, LinkFoto, Titulo, Ano, Codigo, IDAutor, NumPaginas, Ubicacion, Disponibilidad, Resena, Tipo, Atributos) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
+            ps = con.prepareStatement("INSERT INTO Texto (ID, LinkFoto, Titulo, Ano, Codigo, IDAutor, NumPaginas, Ubicacion, Disponibilidad, Resena, Tipo, Atributos) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
             ps.setString(1, texto.getID());
             ps.setString(2, texto.getLinkFoto());
             ps.setString(3, texto.getTitulo());
@@ -60,7 +60,7 @@ public class DAOTexto {
         PreparedStatement ps = null;
         try{
             con = conexion.getConexion();
-            ps = con.prepareStatement("DELETE FROM texto WHERE ID = ?");
+            ps = con.prepareStatement("DELETE FROM Texto WHERE ID = ?");
             ps.setString(1, ID);
             int res = ps.executeUpdate();
             if (res>0) {
@@ -88,7 +88,7 @@ public class DAOTexto {
         PreparedStatement ps = null;
         try{
             con = conexion.getConexion();
-            ps = con.prepareStatement("UPDATE texto SET Codigo = ?, Titulo = ?, NumPaginas = ?, Resena = ?, Ano = ?, Ubicacion = ?, Tipo = ? WHERE ID = ?");
+            ps = con.prepareStatement("UPDATE Texto SET Codigo = ?, Titulo = ?, NumPaginas = ?, Resena = ?, Ano = ?, Ubicacion = ?, Tipo = ? WHERE ID = ?");
             ps.setString(1, texto.getCodigo());
             ps.setString(2, texto.getTitulo());
             ps.setInt(3, texto.getNumPaginas());
@@ -125,7 +125,7 @@ public class DAOTexto {
         ResultSet rs = null;
         try{
             con = conexion.getConexion();
-            ps = con.prepareStatement("SELECT * FROM texto");
+            ps = con.prepareStatement("SELECT * FROM Texto");
             rs = ps.executeQuery();
             while(rs.next()){
                 Texto texto = new Texto();
@@ -166,7 +166,7 @@ public class DAOTexto {
         Connection c = null;
         try{
             c = conexion.getConexion();
-            ps = c.prepareStatement("select t.ID, t.Titulo, a.Nombre, a.Paterno, a.Materno, f.LinkFoto from texto as t, foto as f, autor as a where t.LinkFoto = f.ID and t.IDAutor = a.ID;");
+            ps = c.prepareStatement("select t.ID, t.Titulo, a.Nombre, a.Paterno, a.Materno, f.LinkFoto from Texto as t, Foto as f, Autor as a where t.LinkFoto = f.ID and t.IDAutor = a.ID;");
             rs = ps.executeQuery();
 
             while(rs.next()){
@@ -278,7 +278,7 @@ public class DAOTexto {
 
         try{
             c = conexion.getConexion();
-            ps = c.prepareStatement("select a.ID as IDAutor, t.ID as IDTexto, a.Nombre, a.Paterno, a.Materno, t.Titulo, t.Codigo from autor as a, texto as t where a.ID = t.IDAutor;");
+            ps = c.prepareStatement("select a.ID as IDAutor, t.ID as IDTexto, a.Nombre, a.Paterno, a.Materno, t.Titulo, t.Codigo from Autor as a, Texto as t where a.ID = t.IDAutor;");
             rs = ps.executeQuery();
             JsonObject texto = null;
             while(rs.next()){
@@ -318,7 +318,7 @@ public class DAOTexto {
         try{
             texto = new JsonObject();
             c = conexion.getConexion();
-            ps = c.prepareStatement("select f.LinkFoto, a.ID as IDAutor, t.ID as IDTexto, a.Nombre, a.Paterno, a.Materno, t.Titulo, t.Codigo from autor as a, texto as t, foto as f where a.ID = t.IDAutor and f.ID = t.LinkFoto and t.Codigo = ?;");
+            ps = c.prepareStatement("select f.LinkFoto, a.ID as IDAutor, t.ID as IDTexto, a.Nombre, a.Paterno, a.Materno, t.Titulo, t.Codigo from Autor as a, Texto as t, Foto as f where a.ID = t.IDAutor and f.ID = t.LinkFoto and t.Codigo = ?;");
             ps.setString(1, codigo);
             rs = ps.executeQuery();
             if (rs.next()){
@@ -357,7 +357,7 @@ public class DAOTexto {
         ResultSet rs = null;
         try{
             c = conexion.getConexion();
-            ps = c.prepareStatement("select texto.Titulo, foto.LinkFoto from texto, foto where texto.LinkFoto = foto.ID and texto.ID = ?;");
+            ps = c.prepareStatement("select t.Titulo, f.LinkFoto from Texto as t, Foto as f where t.LinkFoto = f.ID and t.ID = ?;");
             ps.setString(1, id);
             rs = ps.executeQuery();
             if (rs.next()){
@@ -387,7 +387,7 @@ public class DAOTexto {
 
         try{
             c = conexion.getConexion();
-            ps = c.prepareStatement("select ID from texto where Codigo = ?");
+            ps = c.prepareStatement("select ID from Texto where Codigo = ?");
             ps.setString(1, codigo);
             rs = ps.executeQuery();
             if (rs.next()){

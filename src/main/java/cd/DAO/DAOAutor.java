@@ -17,7 +17,7 @@ public class DAOAutor {
         Connection c = null;
         try{
             c = conexion.getConexion();
-            ps = c.prepareStatement("SELECT * FROM autor");
+            ps = c.prepareStatement("SELECT * FROM Autor");
             rs = ps.executeQuery();
             Autor autor = null;
             while(rs.next()){
@@ -50,7 +50,7 @@ public class DAOAutor {
         Connection c = null;
         try{
             c = conexion.getConexion();
-            ps = c.prepareStatement("INSERT INTO autor (ID, nombre, paterno, materno) VALUES (?,?,?,?)");
+            ps = c.prepareStatement("INSERT INTO Autor (ID, nombre, paterno, materno) VALUES (?,?,?,?)");
             ps.setString(1, autor.getID());
             ps.setString(2, autor.getNombre());
             ps.setString(3, autor.getPaterno());
@@ -81,7 +81,7 @@ public class DAOAutor {
         Connection c = null;
         try{
             c = conexion.getConexion();
-            ps = c.prepareStatement("DELETE FROM autor WHERE ID = ?");
+            ps = c.prepareStatement("DELETE FROM Autor WHERE ID = ?");
             ps.setString(1, id);
             int res = ps.executeUpdate();            
             if (res>0) {
@@ -109,7 +109,7 @@ public class DAOAutor {
         Connection c = null;
         try{
             c = conexion.getConexion();
-            ps = c.prepareStatement("UPDATE autor SET nombre = ?, paterno = ?, materno = ? WHERE ID = ?");
+            ps = c.prepareStatement("UPDATE Autor SET nombre = ?, paterno = ?, materno = ? WHERE ID = ?");
             ps.setString(1, autor.getNombre());
             ps.setString(2, autor.getPaterno());
             ps.setString(3, autor.getMaterno());
@@ -142,7 +142,7 @@ public class DAOAutor {
         Connection c = null;
         try{
             c = conexion.getConexion();
-            ps = c.prepareStatement("SELECT * FROM autor WHERE ID = ?");
+            ps = c.prepareStatement("SELECT * FROM Autor WHERE ID = ?");
             ps.setString(1, id);
             rs = ps.executeQuery();
             Autor autor = null;
